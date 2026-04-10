@@ -30,6 +30,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               >
                 Subjects
               </Link>
+              <Link
+                href="/architect"
+                className="text-zinc-400 transition-colors hover:text-zinc-200"
+              >
+                Architect
+              </Link>
+              <Link
+                href="/analytics"
+                className="text-zinc-400 transition-colors hover:text-zinc-200"
+              >
+                Analytics
+              </Link>
             </div>
           </div>
         </nav>

@@ -13,6 +13,7 @@
 
 import express from 'express';
 import pool    from '../db/connection.js';
+import { getSubjectsWithModules } from '../db/grid.queries.js';
 
 const router = express.Router();
 
@@ -74,6 +75,21 @@ router.get('/subjects', async (_req, res, next) => {
     }));
 
     return res.json(result);
+  } catch (err) {
+    return next(err);
+  }
+});
+
+// ─── GET /subjects/full ───────────────────────────────────────────────────────
+// Returns subjects with nested modules + per-module teacher name.
+// Used by the print page (legend) and analytics dashboard.
+// Query params: department, year (both optional)
+
+router.get('/subjects/full', async (req, res, next) => {
+  try {
+    const { department = null, year = null } = req.query;
+    const data = await getSubjectsWithModules(department, year);
+    return res.json(data);
   } catch (err) {
     return next(err);
   }
