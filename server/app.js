@@ -7,6 +7,9 @@
  *   POST /api/upload           — ingest & validate CSV
  *   GET  /api/upload-sessions  — upload audit log
  *   GET  /api/subjects         — all subjects with modules & teachers
+ *   POST /api/generate         — run timetable generation (Phase 2)
+ *   GET  /api/grid             — retrieve persisted timetable grid
+ *   GET  /api/teacher-hours/:id — teacher weekly workload
  */
 
 import express  from 'express';
@@ -15,6 +18,7 @@ import dotenv   from 'dotenv';
 
 import uploadRouter   from './routes/upload.routes.js';
 import subjectsRouter from './routes/subjects.routes.js';
+import generateRouter from './routes/generate.routes.js';
 
 dotenv.config();
 
@@ -39,6 +43,9 @@ app.use('/api', uploadRouter);
 
 // subjectsRouter handles:  GET /api/subjects
 app.use('/api', subjectsRouter);
+
+// generateRouter handles:  POST /api/generate, GET /api/grid, GET /api/teacher-hours/:id
+app.use('/api', generateRouter);
 
 // ─── Health check ─────────────────────────────────────────────────────────────
 
